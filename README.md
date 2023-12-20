@@ -6,24 +6,45 @@
 
 This application is a WordCloud generator that allows users to create visually appealing representations of text data. The generated WordClouds are downloadable, providing an easy way to visualize word frequency and prominence within the provided text.
 
-### Features
+## Features
 
-- **Text Input:** Users can input their desired text for the WordCloud generation.
-- **Stopwords Exclusion:** Option to exclude common stopwords for more relevant visualization.
-- **Word Customization:** Ability to adjust font style, size, and color for the generated WordCloud.
-- **Word Selection:** Users can choose the number of words to include in the WordCloud.
+- **Text Input**: Enter your text data to create a word cloud.
+- **Stopword Exclusion**: Exclude common stopwords from the word cloud.
+- **Word Exclusion**: Choose specific words to exclude.
+- **Font Size Adjustment**: Customize the font size style used in the word cloud.
+- **Word Count Selection**: Set the number of words to display in the word cloud.
 
-## Docker Container
 
-This application is containerized using Docker for easy deployment. To run the WordCloud Generator using Docker, follow these steps:
+## Docker Image
 
-### Prerequisites
+This repository contains the Dockerfile and configurations to build and run the Word Cloud Generator app. Use the following steps to get started:
 
-- [Docker](https://docs.docker.com/get-docker/) installed on your system.
+### Docker Installation
 
-### Usage
+Install Docker by following the instructions [here](https://docs.docker.com/get-docker/).
 
-1. Clone the repository:
+### Build and Run
 
-   ```bash
-   git clone https://github.com/your-username/wordcloud-generator.git
+Clone this repository and navigate to the directory:
+
+```bash
+git clone https://github.com/your-username/word-cloud-generator.git
+cd word-cloud-generator
+
+Build the Docker image:
+
+```bash
+docker build -t word-cloud-app .
+
+Run the Docker container:
+
+```bash
+docker run -p 3000:3000 word-cloud-app
+
+Clone this repository and navigate to the directory:
+
+```bash
+git clone https://github.com/your-username/word-cloud-generator.git
+cd word-cloud-generator
+
+Access the app by visiting [http://localhost:3000](http://localhost:3000) in your web browser.
