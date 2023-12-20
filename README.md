@@ -41,7 +41,7 @@ Build the Docker image:
 Run the Docker container:
 
 ```bash
-  docker run -p 3000:3000 word-cloud-app
+  docker run -d -p 3000:3000 word-cloud-app
 ```
 
 Clone this repository and navigate to the directory:
