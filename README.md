@@ -30,21 +30,25 @@ Clone this repository and navigate to the directory:
 ```bash
   git clone https://github.com/your-username/word-cloud-generator.git
   cd word-cloud-generator
+```
 
 Build the Docker image:
 
 ```bash
   docker build -t word-cloud-app .
+```
 
 Run the Docker container:
 
 ```bash
   docker run -p 3000:3000 word-cloud-app
+```
 
 Clone this repository and navigate to the directory:
 
 ```bash
   git clone https://github.com/your-username/word-cloud-generator.git
   cd word-cloud-generator
+```
 
 Access the app by visiting [http://localhost:3000](http://localhost:3000) in your web browser.
