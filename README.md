@@ -1,6 +1,6 @@
 # WordCloud Generator App
 
-![WordCloud Generator Demo](link_to_your_video_here)
+![WordCloud Generator Demo](screenshot.jpg)
 
 ## Description
 
