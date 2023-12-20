@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Cloud Generator</title>
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" />
+</head>
+<body>
+    <h1>Word Cloud Generator</h1>
+    <br><br>
+    
+    <div class="container">
+        <div class="left-column">
+            <form id="textForm" class="input-form">
+                <label for="inputText">Input Text:</label><br>
+                <textarea id="inputText" rows="5" cols="50" name="text"></textarea><br><br>
+        
+                <label for="stopwords">Exclude Stopwords:</label><br>        
+                <input type="radio" id="excludeStopwords" name="stopwords_option" value="include" checked>
+                <label for="excludeStopwords">Yes</label>
+                <input type="radio" id="includeStopwords" name="stopwords_option" value="exclude">
+                <label for="includeStopwords">No</label><br><br>
+        
+        
+                
+                <label for="stopwords">Exclude Words (comma-separated):</label><br>
+                <input type="text" id="stopwords" name="stopwords"><br><br>
+                
+                <label for="maxFontSize">Max Font Size:</label><br>
+                <input type="number" id="maxFontSize" name="max_font_size"><br><br>
+                
+                
+                <label for="maxWords">Max Words:</label><br>
+                <input type="number" id="maxWords" name="max_words"><br><br>
+                
+                <button class="submit-btn" type="button" onclick="startLoading()">Generate Word Cloud</button>
+            </form>
+        </div>
+        <div class="right-column">
+            <div id="wordcloudDiv"></div>
+            <!-- Transparent Loading GIF -->
+        <img id="loadingGif" src="{{url_for('static', filename='cupertino_activity_indicator_square_large.gif')}}" alt="Loading..." style="display: none;">
+        <br>
+        <button class="download-btn" id="downloadBtn" style="display: none;" onclick="downloadWordCloud()">Download Word Cloud</button>
+        </div>    
+    
+
+    <script>
+        function startLoading() {
+            var loadingGif = document.getElementById('loadingGif');
+            var wordcloudDiv = document.getElementById('wordcloudDiv');
+            var downloadBtn = document.getElementById('downloadBtn');
+
+            loadingGif.style.display = 'block'; // Show the loading GIF
+            wordcloudDiv.style.display = 'none'; // Hide the word cloud
+            downloadBtn.style.display = 'none'; // Hide the download button
+
+            setTimeout(function() {
+                loadingGif.style.display = 'none'; // Hide the loading GIF after 5 seconds
+                wordcloudDiv.style.display = 'block'; // Show the word cloud
+                downloadBtn.style.display = 'block'; // Show the download button
+                generateWordCloud(); // Call the function to generate the word cloud
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+
+
+        function downloadWordCloud() {
+            var wordcloudImage = document.getElementById('wordcloudDiv').querySelector('img');
+            var downloadLink = document.createElement('a');
+            downloadLink.href = wordcloudImage.src;
+            downloadLink.download = 'wordcloud.png'; // Set the default download filename
+            downloadLink.click();
+        }
+
+
+        function generateWordCloud() {
+
+            var text = document.getElementById('inputText').value;
+            var stopwordsOption = document.querySelector('input[name="stopwords_option"]:checked').value;
+            var stopwords = document.getElementById('stopwords').value;
+            var maxFontSize = document.getElementById('maxFontSize').value;
+            var maxWords = document.getElementById('maxWords').value;
+
+            if (!text.trim()) {
+                document.getElementById('wordcloudDiv').innerHTML = 'No text input provided';
+                
+                var downloadBtn = document.getElementById('downloadBtn');
+                downloadBtn.style.display = 'none'; // Hide the download button
+
+                return;
+            }
+
+            fetch('/generate_wordcloud', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'text=' + encodeURIComponent(text) +
+                    '&stopwords=' + encodeURIComponent(stopwords) +
+                    '&max_font_size=' + maxFontSize +
+                    '&max_words=' + maxWords +
+                    '&stopwords_option=' + stopwordsOption
+            })
+            .then(response => response.json())
+            .then(data => {
+                var img = document.createElement('img');
+                img.src = 'data:image/png;base64,' + data.image;
+                document.getElementById('wordcloudDiv').innerHTML = '';
+                document.getElementById('wordcloudDiv').appendChild(img);
+            });
+        }
+    </script>
+</body>
+</html>
