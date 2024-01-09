@@ -47,7 +47,7 @@ Run the Docker container:
 Clone this repository and navigate to the directory:
 
 ```bash
-  git clone https://github.com/your-username/word-cloud-generator.git
+  git clone https://github.com/mondaldebojit21/word-cloud-generator.git
   cd word-cloud-generator
 ```
 
